@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html class="register">
+	<head>
+		<title>Register - Sky's UR Limit</title>
+		<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+		<meta charset = "UTF-8">
+		<meta name="viewport" content="width=devicewidth, initial-scale1">
+		<script type="text/javascript" src="./homepage.js"></script>
+	</head>
+	<body>
+		<div class="header">
+			<div class="wrapper">
+				<nav>
+					<ul class="menuArea">
+						<li><a href="./homepage.html">Homepage</a></li>
+						<li><a href="./About Us.html">About Us</a></li>
+						<li><a href="./Asia Destinations.html">Asia Destinations</a></li>
+						<li><a href="./Australasia Destinations.html">Australasia Destinations</a></li>
+						<li><a href="./book now.html">Book Now</a></li>
+						<li><a href="./login.html">Login</a></li>
+						<li><a href="./register.html" id="current">Register</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="myForm">
+			<form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
+			  <div class="input">
+			    <div id="upperRegister">
+					<label for="fname">Name:</label> <input class="registerInput" type="text" name="fname"><br><br>
+					<label for="sname">Surname:</label> <input class="registerInput" type="text" name="sname"><br><br>
+					<label for="email">Email: </label> <input class="registerInput" type="email" name="email"><br><br>
+					<label for="pwd">Password:</label> <input class="registerInput" type="password" name="pwd"><br><br>
+					<label for="pwd2">Password Confirmation </label><input type="password" name="pwd2"><br><br>
+				</div>
+				<div id="lowerRegister">
+					<input type="checkbox" name="tC" id="tC">I have read and agree to the terms and conditions<br><br>
+					<input type="submit" value="Submit" id="registerSubmit"><br>
+				</div>
+			  </div>
+			</form>
+		</div>
+    </body>
+</html>
+
+

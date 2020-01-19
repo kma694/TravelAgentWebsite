@@ -1,0 +1,79 @@
+.homepage {
+	background-image: url("./homepage.jpg"); 
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+
+.login-register {
+	margin-top: 15px;
+	padding-left: 30px;
+}
+
+.login-register a:link {
+	font-family: Arial, sans-serif;
+	color: #FFFFFF;
+	-webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+	padding-right: 10px;
+	margin-top: 10px;
+	font-weight: bold;
+}
+
+.login-register a:hover {
+	color: #6a5acd;
+}
+
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 25px;
+  width: 300px;
+  position: relative;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+
+.dropdown-homepage {
+  	width: 300px;
+	height: 100px;
+	position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);;
+}
+
+
+.dropdown-content {
+  width: 300px;	
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  font-family: Arial, sans-serif;
+  text-decoration: none;
+  display: block;
+}
+
+
+.dropdown-content a:hover {background-color: #ddd}
+
+
+.show {display:block;}

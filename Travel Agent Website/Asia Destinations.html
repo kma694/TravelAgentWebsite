@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+		<title>Asia Destinations - Sky's UR Limit</title>
+		<link href="stylesheet.css" type="text/css" rel="stylesheet">
+		<meta charset = "UTF-8">
+		<meta name="viewport" content="width=devicewidth, initial-scale1">
+		<script type = "text/javascript" src = "./homepage.js"></script>
+  </head>
+  <body>
+		<script>
+			function randNum(min, max) {
+			  min = Math.ceil(min);
+			  max = Math.floor(max);
+			  return Math.floor(Math.random() * (max - min + 1)) + min;
+			}
+
+			_ = self.Flower = function(opts){
+			  this.left = opts.left;
+			  this.top = opts.top;
+			  this.size = randNum(1.5, 6);
+			  this.drawFlower();
+			}
+			_.prototype = {
+			  spinFlower: function(el){
+				var r = 0;
+				var spd = Math.random() * (3 - 0.05) + 0.05;
+				(function spin() {
+				  if (r === 350){
+					r = 0
+				  } else {
+					r += spd
+				  }
+				  el.style.transform = 'rotate('+r+'deg)';
+				  requestAnimationFrame(spin);
+				})();
+			  },
+			  fall: function(el){
+				var _this = this;
+				var max_right = _this.left + randNum(20, 50);
+				var max_left = _this.left - randNum(20, 50);
+				var dir_i = randNum(0,1);
+				var directions = ['left', 'right'];
+				var direction = directions[dir_i];
+				(function fall() {
+				  if (_this.left === max_left){
+					direction = 'right';
+					max_left= _this.left - randNum(20, 50);
+				  }
+				  if (_this.left === max_right){
+					direction = 'left';
+					max_right = _this.left + randNum(20, 50);
+				  }
+				  if (direction === 'left'){
+					_this.left -= 1
+				  } else {
+					_this.left += 1
+				  }
+				  _this.top += 2;
+				  el.style.top = _this.top + 'px';
+				  el.style.left = _this.left + 'px';
+				  requestAnimationFrame(fall);
+				})();
+			  },
+			  fadeOut: function(el){
+				el.style.opacity = 1;
+
+				(function fade() {
+				  if ((el.style.opacity -= .007) < 0) {
+					el.parentNode.removeChild(el);
+				  } else {
+					requestAnimationFrame(fade);
+				  }
+				})();
+			  },
+			  get petal (){
+				var petal = document.createElement('div');
+				petal.style.userSelect = 'none';
+				petal.style.position = 'absolute';
+				petal.style.background = 'radial-gradient(white 10%, pink 70%)';
+				petal.style.backgroundSize = this.size+'vmin';
+				petal.style.backgroundPosition = '-'+this.size/2+'vmin 0';
+				petal.style.width = petal.style.height = this.size/2+'vmin';
+				petal.style.borderTopLeftRadius = petal.style.borderBottomRightRadius = (42.5 * this.size) / 100 + "vmin";
+				return petal;
+			  },
+			  get petal_styles(){
+				return [
+				  {
+					transform: 'rotate(-47deg)',
+					left: '50%',
+					marginLeft: '-'+this.size/4+'vmin',
+					top: 0
+				  },{
+					transform: 'rotate(15deg)',
+					left: '100%',
+					marginLeft: '-'+(this.size * 39 /100)+'vmin',
+					top: (this.size * 17.5) / 100 + 'vmin'
+				  },{
+					transform: 'rotate(93deg)',
+					left: '100%',
+					marginLeft: '-'+(this.size * 51) / 100+'vmin',
+					top: (this.size * 58) / 100 + 'vmin'
+				  },{
+					transform: 'rotate(175deg)',
+					left: '0%',
+					marginLeft: (this.size * 5) / 100 +'vmin',
+					top: (this.size * 58) / 100 + 'vmin'
+				  },{
+					transform: 'rotate(250deg)',
+					left: '0%',
+					marginLeft: -(this.size * 8) / 100 +'vmin',
+					top: (this.size * 17.5) / 100 + 'vmin'
+				  }
+				]
+			  },
+			  get flower(){
+				var flower = document.createElement('div');
+				flower.style.userSelect = 'none';
+				flower.style.position = 'absolute';
+				flower.style.left = this.left + 'px';
+				flower.style.top = this.top + 'px';
+				flower.style.width = this.size + 'vmin';
+				flower.style.height = this.size + 'vmin';
+				for (var i = 0; i < 5; i++){
+				  var petal = this.petal;
+				  // var styles = this.petal_styles[i];
+				  petal.style.transform = this.petal_styles[i]['transform'];
+				  petal.style.top = this.petal_styles[i]['top'];
+				  petal.style.left = this.petal_styles[i]['left'];
+				  petal.style.marginLeft = this.petal_styles[i]['marginLeft'];
+				  flower.appendChild(petal);
+				}
+				this.fadeOut(flower);
+				this.spinFlower(flower);
+				this.fall(flower);
+				return flower;
+			  },
+			  drawFlower: function(){
+				document.body.appendChild(this.flower);
+			  }
+			}
+
+			window.addEventListener('mousedown', function(e){
+			  var amt = randNum(1, 5);
+			  for (var i = 0; i < amt; i++){
+				var top = randNum(e.clientY - 30, e.clientY + 30);
+				var left = randNum(e.clientX - 30, e.clientX + 10);
+				var flower = new Flower({
+				  top: top,
+				  left: left
+				});
+			  }
+			});
+		</script>
+		<div class="header" id="asia_header">
+			<div class="wrapper">
+				<nav>
+					<ul class="menuArea">
+						<li><a href="./homepage.html">Homepage</a></li>
+						<li><a href="./About Us.html">About Us</a></li>
+						<li><a href="./Asia Destinations.html" id="current">Asia Destinations</a></li>
+						<li><a href="./Australasia Destinations.html">Australasia Destinations</a></li>
+						<li><a href="./book now.html">Book Now</a></li>
+						<li><a href="./login.html">Login</a></li>
+						<li><a href="./register.html">Register</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="destinationContainer">
+			<div id="imageContainer">
+			<h1>Asia Destinations</h1>
+				<img id="comingSoon" src="./comingSoon.png"><br>
+				<div class="dropdown">
+					  <button onclick="destinationDrop()" class="destinationDropbtn">Search our Destinations</button>
+					  <div id="destinationDrop" class="destinationDrop-content">
+						<input type="text" placeholder="Search.." id="myInput" onkeyup="desinationFilterFunction()">
+						<a href="https://youtu.be/rDYdeq3JW_E">Azerbaijan</a>
+						<a href="https://youtu.be/rDYdeq3JW_E">Bangladesh</a>
+						<a href="https://youtu.be/f59dDEk57i0">Bhutan</a>
+						<a href="https://youtu.be/o9616aakXpU">Cambodia</a>
+						<a href="https://youtu.be/2ft1P9O_YGc">China</a>
+						<a href="https://youtu.be/sRpxt2g9ROk">Georgia</a>
+						<a href="https://youtu.be/sRpxt2g9ROk">India</a>
+						<a href="https://youtu.be/ojQbArbuN4E">Indonesia</a>
+						<a href="https://youtu.be/F0AT_7uVbeo">Japan</a>
+						<a href="https://youtu.be/MBgWW5-4YW8">Kazakhstan</a>
+						<a href="https://youtu.be/hSoEd60yi7c">Kyrgyzstan</a>
+						<a href="https://youtu.be/5OPUHEtjudc">Laos</a>
+						<a href="https://youtu.be/mtIeLsMbfzg">Malaysia</a>
+						<a href="https://youtu.be/rBDC7_BnLH4">Maldives</a>
+						<a href="https://youtu.be/IXgb_mk4SQI">Mongolia</a>
+						<a href="https://youtu.be/nmKSROXWTgY">Myanmar</a>
+						<a href="https://youtu.be/ut-U-4m42aQ">Nepal</a>
+						<a href="https://youtu.be/tRnV2P5T5VA">North Korea</a>
+						<a href="https://youtu.be/o6lPnf0SR9E">Philippines</a>
+						<a href="https://youtu.be/PTSvtOOySFA">Sri Lanka</a>
+						<a href="https://youtu.be/qshYB9h4zdE">Taiwan</a>
+						<a href="https://youtu.be/XktG82pJRLk">Tajikistan</a>
+						<a href="https://youtu.be/F1w3KiqBPP4">Timor Leste</a>
+						<a href="https://youtu.be/zBwz5IR3NaU">Turkmenistan</a>
+						<a href="https://youtu.be/Ab7av6vbjSI">Uzbekistan</a>
+						<a href="https://youtu.be/JvTzj71UlCg">Vietnam</a>
+					  </div>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/ELo2ncoj86E">
+					<img class="destinationImage" src="./Azerbaijan.jpg">
+					<div class="middle">
+						<div class="text">Azerbaijan</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/rDYdeq3JW_E">
+					<img class="destinationImage" src="./Bangladesh.jpg">
+					<div class="middle">
+						<div class="text">Bangladesh</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/f59dDEk57i0">
+					<img class="destinationImage" src="./Bhutan.jpg">
+					<div class="middle">
+						<div class="text">Bhutan</div>	
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/o9616aakXpU">
+					<img class="destinationImage" src="./Cambodia.jpg">
+					<div class="middle">
+						<div class="text">Cambodia</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/2ft1P9O_YGc">
+					<img class="destinationImage" src="./China.jpg">
+					<div class="middle">
+						<div class="text">China</div>	
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/sRpxt2g9ROk">
+					<img class="destinationImage" src="./Georgia.jpg">
+					<div class="middle">
+						<div class="text">Georgia</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/sRpxt2g9ROk">
+					<img class="destinationImage" src="./India.jpg">
+					<div class="middle">
+						<div class="text">India</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/ojQbArbuN4E">
+					<img class="destinationImage" src="./Indonesia.jpg">
+					<div class="middle">
+						<div class="text">Indonesia</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/F0AT_7uVbeo">
+					<img class="destinationImage" src="./Japan.jpg">
+					<div class="middle">
+						<div class="text">Japan</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/MBgWW5-4YW8">
+					<img class="destinationImage" src="./Kazakhstan.jpg">
+					<div class="middle">
+						<div class="text">Kazakhstan</div>	
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/hSoEd60yi7c">
+					<img class="destinationImage" src="./Kyrgyzstan.jpg">
+					<div class="middle">
+						<div class="text">Kyrgyzstan</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/5OPUHEtjudc">
+					<img class="destinationImage" src="./Laos.jpg">
+					<div class="middle">
+						<div class="text">Laos</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/mtIeLsMbfzg">
+					<img class="destinationImage" src="./Malaysia.jpg">
+					<div class="middle">
+						<div class="text">Malaysia</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/rBDC7_BnLH4">
+					<img class="destinationImage" src="./Maldives.jpg">
+					<div class="middle">
+						<div class="text">Maldives</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/IXgb_mk4SQI">
+					<img class="destinationImage" src="./Mongolia.jpg">
+					<div class="middle">
+						<div class="text">Mongolia</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/nmKSROXWTgY">
+					<img class="destinationImage" src="./Myanmar.jpg">
+					<div class="middle">
+						<div class="text">Myanmar</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/ut-U-4m42aQ">
+					<img class="destinationImage" src="./Nepal.jpg">
+					<div class="middle">
+						<div class="text">Nepal</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/tRnV2P5T5VA">
+					<img class="destinationImage" src="./North Korea.jpg">
+					<div class="middle">
+						<div class="text">North Korea</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/o6lPnf0SR9E">
+					<img class="destinationImage" src="./Philippines.jpg">
+					<div class="middle">
+						<div class="text">Philippines</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/P_q3BdrFsLI">
+					<img class="destinationImage" src="./Singapore.jpg">
+					<div class="middle">
+						<div class="text">Singapore</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/PTSvtOOySFA">
+					<img class="destinationImage" src="./Sri Lanka.jpg">
+					<div class="middle">
+						<div class="text">Sri Lanka</div>
+					</div>
+					</a>
+				</div>
+					<div id="destination">
+					<a href="https://youtu.be/qshYB9h4zdE">
+					<img class="destinationImage" src="./Taiwan.jpg">
+					<div class="middle">
+						<div class="text">Taiwan</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/XktG82pJRLk">
+					<img class="destinationImage" src="./Tajikistan.jpg">
+					<div class="middle">
+						<div class="text">Tajikistan</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/Kjuuq-jWJ5c">
+					<img class="destinationImage" src="./Thailand.jpg">
+					<div class="middle">
+						<div class="text">Thailand</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/F1w3KiqBPP4">
+					<img class="destinationImage" src="./Timor Leste.jpg">
+					<div class="middle">
+						<div class="text">Timor Leste</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/zBwz5IR3NaU">
+					<img class="destinationImage" src="./Turkmenistan.jpg">
+					<div class="middle">
+						<div class="text">Turkmenistan</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/Ab7av6vbjSI">
+					<img class="destinationImage" src="./Uzbekistan.jpg">
+					<div class="middle">
+						<div class="text">Uzbekistan</div>
+					</div>
+					</a>
+				</div>
+				<div id="destination">
+					<a href="https://youtu.be/JvTzj71UlCg">
+					<img class="destinationImage"src="./Vietnam.jpg">
+					<div class="middle">
+						<div class="text">Vietnam</div>
+					</div>
+					</a>
+				</div>
+			</div>
+		</div>
+  </body>
+</html>

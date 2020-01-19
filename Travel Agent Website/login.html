@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html class="login">
+	<head>
+		<title>Login - Sky's UR Limit</title>
+		<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+		<meta charset = "UTF-8">
+		<meta name="viewport" content="width=devicewidth, initial-scale1">
+		<script type = "text/javascript" src = "./homepage.js"></script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<nav>
+				<ul class="menuArea">
+					<li><a href="./homepage.html">Homepage</a></li>
+					<li><a href="./About Us.html">About Us</a></li>
+					<li><a href="./Asia Destinations.html">Asia Destinations</a></li>
+					<li><a href="./Australasia Destinations.html">Australasia Destinations</a></li>
+					<li><a href="./book now.html">Book Now</a></li>
+					<li><a href="./login.html" id="current">Login</a></li>
+					<li><a href="./register.html">Register</a></li>
+				</ul>
+			</nav>
+		</div>
+		<div id="loginContainer">
+			<form id="loginForm" name="loginForm" onsubmit="return validateLogin(loginForm)">
+			    <div id="upperLogin">
+					<div id="enterUsername">
+						<label for="usernameIn">Username</label>
+						<input type="text" id="usernameIn" name="usernameIn"></input>
+					</div>
+					<div id="enterPassword">
+						<label for="passwordIn">Password</label>
+						<input type="password" id="passwordIn" name="passwordIn"></input>
+					</div>
+				</div>
+				<div id="lowerLogin">
+					<input type="checkbox" id="rememberMe" ></input>
+					<label>Remember me</label>
+					<input type="submit" name="submit" value="Login" id="loginSubmit"></input>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
